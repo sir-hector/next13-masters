@@ -47,9 +47,7 @@ const products: ProductItemType[] = [
 export default function Home() {
 	return (
 		<section className="mx-auto p-12">
-			<section>
-				<ProductList products={products} />
-			</section>
+			<ProductList products={products} />
 		</section>
 	);
 }

@@ -16,6 +16,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<section className="sm:py-15 md:max-2-4xl mx-auto max-w-md p-12 sm:max-w-2xl sm:py-16 lg:max-w-7xl">
 					{children}
 				</section>
+				<footer>
+					<p className="text-center text-sm text-gray-500">2023</p>
+				</footer>
 			</body>
 		</html>
 	);

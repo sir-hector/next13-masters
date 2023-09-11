@@ -1,50 +1,37 @@
 import { ProductList } from "@/ui/organisms/ProductList";
 import { type ProductItemType } from "@/ui/types";
 
-const products: ProductItemType[] = [
-	{
-		id: 1,
-		price: 100,
-		name: "T-shirt",
-		category: "T-shirt",
-		coverImage: {
-			src: "/product1.jpeg",
-			alt: "test",
-		},
-	},
-	{
-		id: 2,
-		price: 100,
-		name: "Shoes",
-		category: "Shoes",
-		coverImage: {
-			src: "/product2.jpeg",
-			alt: "test",
-		},
-	},
-	{
-		id: 2,
-		price: 100,
-		name: "Jacket",
-		category: "Jacket",
-		coverImage: {
-			src: "/product3.jpeg",
-			alt: "test",
-		},
-	},
-	{
-		id: 2,
-		price: 100,
-		name: "Shirt",
-		category: "Shirt",
-		coverImage: {
-			src: "/product4.jpeg",
-			alt: "test",
-		},
-	},
-];
+export default async function ProductPage() {
+	type ProductResponseItem = {
+		id: string;
+		title: string;
+		price: number;
+		description: string;
+		category: string;
+		rating: {
+			rate: number;
+			count: number;
+		};
+		image: string;
+		longDescription: string;
+	};
 
-export default function ProductPage() {
+	const res = await fetch("https://naszsklep-api.vercel.app/api/products");
+	const productsResponse = (await res.json()) as ProductResponseItem[];
+
+	const products = productsResponse.map(
+		(product): ProductItemType => ({
+			id: product.id,
+			price: product.price,
+			name: product.title,
+			category: product.category,
+			coverImage: {
+				src: product.image,
+				alt: product.title,
+			},
+		}),
+	);
+
 	return (
 		<section className="mx-auto p-12">
 			<ProductList products={products} />

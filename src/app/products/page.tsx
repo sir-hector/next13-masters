@@ -1,4 +1,3 @@
-import { ProductCounter } from "@/ui/atoms/ProductCounter";
 import { ProductList } from "@/ui/organisms/ProductList";
 import { type ProductItemType } from "@/ui/types";
 
@@ -45,11 +44,10 @@ const products: ProductItemType[] = [
 	},
 ];
 
-export default function Home() {
+export default function ProductPage() {
 	return (
 		<section className="mx-auto p-12">
 			<ProductList products={products} />
-			<ProductCounter />
 		</section>
 	);
 }

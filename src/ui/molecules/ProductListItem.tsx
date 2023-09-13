@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ProductItemType } from "../types";
 import { ProductListItemDescription } from "@/ui/atoms/ProductListItemDescription";
 import { ProductCoverImage } from "@/ui/atoms/ProductCoverImage";
@@ -11,6 +12,7 @@ export const ProductListItem = ({ product }: ProductListItemProps) => {
 		<article className="flex flex-col">
 			<ProductCoverImage {...product.coverImage} />
 			<ProductListItemDescription product={product} />
+			<Link href={`/products/${product.id}`}> {product.name}</Link>
 		</article>
 	);
 };

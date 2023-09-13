@@ -41,4 +41,5 @@ const productResposeItemToProductItemType = (product: ProductResponseItem): Prod
 		src: product.image,
 		alt: product.title,
 	},
+	description: product.description,
 });

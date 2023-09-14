@@ -18,10 +18,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					<div className="text-2xl font-bold">Logo</div>
 					<ul className="flex">
 						<li className="mx-4">
-							<ActiveLink href="/">Home</ActiveLink>
+							<ActiveLink href="/" className="text-blue-500 hover:text-blue" activeClassName="underline">Home</ActiveLink>
 						</li>
 						<li className="mx-4">
-							<ActiveLink href="/products">Products</ActiveLink>
+							<ActiveLink href="/products" className="text-blue-500 hover:text-blue" activeClassName="underline" exact={false}>Products</ActiveLink>
 						</li>
 					</ul>
 				</nav>

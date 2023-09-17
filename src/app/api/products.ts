@@ -14,10 +14,10 @@ type ProductResponseItem = {
 	longDescription: string;
 };
 
-export const getProductsList = async () => {
-	const res = await fetch("https://naszsklep-api.vercel.app/api/products");
+export const getProductsList = async (productAmount: number, offset: number) => {
+	const res = await fetch(`https://naszsklep-api.vercel.app/api/products?take=${productAmount}&offset=${offset}`);
 	const productsResponse = (await res.json()) as ProductResponseItem[];
-
+	console.log(productsResponse.length)
 	const products = productsResponse.map(productResposeItemToProductItemType);
 
 	return products;

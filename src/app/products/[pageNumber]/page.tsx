@@ -14,16 +14,17 @@ export default async function CategoryProductPage({
 {
 	const numberOfProducts = 15;
 	const currentPage = parseInt(params.pageNumber);
+	const numberOfPages = 5;
 	const offset = numberOfProducts * (currentPage -1);
 	const products = await getProductsList(numberOfProducts, offset);
 
 	return (
 		<div>
 			<h1>
-				{params.pageNumber}
+				Produkty strona: {params.pageNumber}
 			</h1>
 			<ProductList products={products} />
-			<Pagination currentPage={currentPage} />
+			<Pagination numberOfPages={numberOfPages} />
 		</div>
 	);
 }

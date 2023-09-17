@@ -5,7 +5,7 @@ import { ProductListItem } from "@/ui/molecules/ProductListItem";
 import { SuggestedProducts } from "@/ui/organisms/SuggestedProducts";
 
 export const generateStaticParams = async () => {
-	const products = await getProductsList();
+	const products = await getProductsList(5, 0);
 	return products.map((product) => product.id);
 };
 
@@ -17,22 +17,23 @@ export const generateMetadata = async ({
 	const product = await getProductById(params.productId);
 
 	return {
-		title: `Produkt ${product.name}`,
+		title: `Sigle Product Page`,
 		description: product.description,
-		openGraph: {
-			title: `Produkt ${product.name}`,
-			description: product.description,
-		},
 	};
 };
 
-export default async function SigleProduct({ params }: { params: { productId: string } }) {
+export default async function SigleProduct({
+	params,
+}: {
+	params: { productId: string };
+}) {
 	const product = await getProductById(params.productId);
 	return (
 		<>
 			<article className="max-w-xs">
 				<h1>Sigle Product Page</h1>
 				<ProductListItem product={product} />
+				<p>{product.description}</p>
 			</article>
 			<aside>
 				<Suspense>

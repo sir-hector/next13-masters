@@ -18,7 +18,9 @@ const config: CodegenConfig = {
 				skipTypename: true,
 				documentMode: "string",
 			},
-			presetConfig: {},
+			presetConfig: {
+				fragmentMasking: { unmaskFunctionName: "getFragmentData" },
+			},
 			plugins: [],
 		},
 	},

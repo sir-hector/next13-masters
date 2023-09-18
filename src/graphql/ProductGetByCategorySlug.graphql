@@ -1,16 +1,7 @@
 query ProductGetByCategorySlug($slug: String!) {
 	categories(where: { slug: $slug }) {
-		products(first: 1) {
-			id
-			name
-			description
-			price
-			categories(first: 1) {
-				name
-			}
-			images(first: 1) {
-				url
-			}
+		products(first: 10) {
+			...ProductListItem
 		}
 	}
 }

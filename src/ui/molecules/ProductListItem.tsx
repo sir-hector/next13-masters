@@ -13,7 +13,9 @@ export const ProductListItem = ({
 	return (
 		<article className="flex flex-col">
 			<Link href={`/product/${product.id}`}>
-				<ProductCoverImage {...product.coverImage} />
+				{product.coverImage && (
+					<ProductCoverImage {...product.coverImage} />
+				)}
 				<ProductListItemDescription product={product} />
 			</Link>
 		</article>

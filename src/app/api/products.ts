@@ -1,6 +1,8 @@
+import { notFound } from "next/navigation";
+import { executeGraphql } from "./graphqlApi";
 import {
+	ProductGetByCategorySlugDocument,
 	ProductGetListDocument,
-	type TypedDocumentString,
 } from "@/gql/graphql";
 import { type ProductItemType } from "@/ui/types";
 
@@ -18,45 +20,11 @@ type ProductResponseItem = {
 	longDescription: string;
 };
 
-const executeGraphql = async <TResult, TVariables>(
-	query: TypedDocumentString<TResult, TVariables>,
-	variables: TVariables,
-): Promise<TResult> => {
-	if (!process.env.GRAPHQL_URL) {
-		throw new Error("GRAPHQL_URL not set");
-	}
-
-	const res = await fetch(process.env.GRAPHQL_URL, {
-		method: "POST",
-		body: JSON.stringify({
-			query,
-			variables,
-		}),
-		headers: {
-			"Content-Type": "application/json",
-		},
-	});
-
-	type GraphQLResponse<T> =
-		| { data?: undefined; errors: { message: string }[] }
-		| { data: T; errors?: undefined };
-
-	const graphqlResponse =
-		(await res.json()) as GraphQLResponse<TResult>;
-
-	if (graphqlResponse.errors) {
-		throw new TypeError(`GraphQL error`, {
-			cause: graphqlResponse.errors,
-		});
-	}
-
-	return graphqlResponse.data;
-};
-
 export const getProductsList = async (
 	productAmount: number,
 	offset: number,
 ): Promise<ProductItemType[]> => {
+	console.log(productAmount, offset);
 	const graphqlResponse = await executeGraphql(
 		ProductGetListDocument,
 		{},
@@ -67,9 +35,36 @@ export const getProductsList = async (
 			id: p.id,
 			name: p.name,
 			description: p.description,
-			category: p.description,
+			category: p.categories[0]?.name || "Brak kategorii",
 			price: p.price,
-			coverImage: {
+			coverImage: p.images[0] && {
+				src: p.images[0].url,
+				alt: p.name,
+			},
+		};
+	});
+};
+
+export const getProductsListByCategorySlug = async (slug: string) => {
+	const categories = await executeGraphql(
+		ProductGetByCategorySlugDocument,
+		{ slug: slug },
+	);
+
+	const products = categories.categories[0]?.products;
+
+	if (!products) {
+		throw notFound();
+	}
+
+	return products.map((p) => {
+		return {
+			id: p.id,
+			name: p.name,
+			description: p.description,
+			category: p.categories[0]?.name || "Brak kategorii",
+			price: p.price,
+			coverImage: p.images[0] && {
 				src: p.images[0].url,
 				alt: p.name,
 			},

@@ -14,13 +14,18 @@ import * as types from './graphql';
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "query ProductGetList {\n  products(first: 10) {\n    id\n    name\n    description\n    price\n    images {\n      url\n    }\n  }\n}": types.ProductGetListDocument,
+    "query ProductGetByCategorySlug($slug: String!) {\n  categories(where: {slug: $slug}) {\n    products(first: 1) {\n      id\n      name\n      description\n      price\n      categories(first: 1) {\n        name\n      }\n      images(first: 1) {\n        url\n      }\n    }\n  }\n}": types.ProductGetByCategorySlugDocument,
+    "query ProductGetList {\n  products(first: 10) {\n    id\n    name\n    description\n    price\n    categories(first: 1) {\n      name\n    }\n    images(first: 1) {\n      url\n    }\n  }\n}": types.ProductGetListDocument,
 };
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query ProductGetList {\n  products(first: 10) {\n    id\n    name\n    description\n    price\n    images {\n      url\n    }\n  }\n}"): typeof import('./graphql').ProductGetListDocument;
+export function graphql(source: "query ProductGetByCategorySlug($slug: String!) {\n  categories(where: {slug: $slug}) {\n    products(first: 1) {\n      id\n      name\n      description\n      price\n      categories(first: 1) {\n        name\n      }\n      images(first: 1) {\n        url\n      }\n    }\n  }\n}"): typeof import('./graphql').ProductGetByCategorySlugDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query ProductGetList {\n  products(first: 10) {\n    id\n    name\n    description\n    price\n    categories(first: 1) {\n      name\n    }\n    images(first: 1) {\n      url\n    }\n  }\n}"): typeof import('./graphql').ProductGetListDocument;
 
 
 export function graphql(source: string) {

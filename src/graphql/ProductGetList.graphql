@@ -4,7 +4,10 @@ query ProductGetList {
 		name
 		description
 		price
-		images {
+		categories(first: 1) {
+			name
+		}
+		images(first: 1) {
 			url
 		}
 	}

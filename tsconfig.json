@@ -16,6 +16,7 @@
 		"incremental": true,
 		"allowUnreachableCode": true,
 		"noUnusedLocals": true,
+		"noUncheckedIndexedAccess": true,
 		"plugins": [
 			{
 				"name": "next"

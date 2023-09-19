@@ -10698,6 +10698,13 @@ export type ProductGetListQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ProductGetListQuery = { products: Array<{ ' $fragmentRefs'?: { 'ProductListItemFragment': ProductListItemFragment } }> };
 
+export type ProductGetByIdQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type ProductGetByIdQuery = { product?: { id: string, name: string, description: string, price: number, categories: Array<{ name: string, slug: string }>, images: Array<{ url: string }> } | null };
+
 export type ProductListItemFragment = (
   { id: string }
   & { ' $fragmentRefs'?: { 'ProductListItem_ProductFragment': ProductListItem_ProductFragment;'ProductListItemImage_ProductFragment': ProductListItemImage_ProductFragment } }
@@ -10705,7 +10712,7 @@ export type ProductListItemFragment = (
 
 export type ProductListItemImage_ProductFragment = { images: Array<{ url: string }> } & { ' $fragmentName'?: 'ProductListItemImage_ProductFragment' };
 
-export type ProductListItem_ProductFragment = { name: string, price: number, categories: Array<{ name: string }> } & { ' $fragmentName'?: 'ProductListItem_ProductFragment' };
+export type ProductListItem_ProductFragment = { name: string, price: number, categories: Array<{ name: string, slug: string }> } & { ' $fragmentName'?: 'ProductListItem_ProductFragment' };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -10727,6 +10734,7 @@ export const ProductListItem_ProductFragmentDoc = new TypedDocumentString(`
   price
   categories(first: 1) {
     name
+    slug
   }
 }
     `, {"fragmentName":"ProductListItem_Product"}) as unknown as TypedDocumentString<ProductListItem_ProductFragment, unknown>;
@@ -10753,6 +10761,7 @@ fragment ProductListItem_Product on Product {
   price
   categories(first: 1) {
     name
+    slug
   }
 }`, {"fragmentName":"ProductListItem"}) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
 export const CategoryGetListDocument = new TypedDocumentString(`
@@ -10787,6 +10796,7 @@ fragment ProductListItem_Product on Product {
   price
   categories(first: 1) {
     name
+    slug
   }
 }`) as unknown as TypedDocumentString<ProductGetByCategorySlugQuery, ProductGetByCategorySlugQueryVariables>;
 export const ProductGetListDocument = new TypedDocumentString(`
@@ -10810,5 +10820,23 @@ fragment ProductListItem_Product on Product {
   price
   categories(first: 1) {
     name
+    slug
   }
 }`) as unknown as TypedDocumentString<ProductGetListQuery, ProductGetListQueryVariables>;
+export const ProductGetByIdDocument = new TypedDocumentString(`
+    query ProductGetById($id: ID!) {
+  product(where: {id: $id}) {
+    id
+    name
+    description
+    categories(first: 1) {
+      name
+      slug
+    }
+    price
+    images(first: 1) {
+      url
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ProductGetByIdQuery, ProductGetByIdQueryVariables>;

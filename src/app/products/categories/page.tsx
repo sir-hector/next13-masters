@@ -3,7 +3,6 @@ import { getCategoriesList } from "@/app/api/categories";
 
 export default async function ProductPage() {
 	const categories = await getCategoriesList();
-	console.log(categories);
 
 	return (
 		<section className="mx-auto p-12">

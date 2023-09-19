@@ -6,6 +6,7 @@ const PrductListItemDescription_Product = graphql(/* GraphQL */ `
 		price
 		categories(first: 1) {
 			name
+			slug
 		}
 	}
 `);

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { executeGraphql } from "./graphqlApi";
 import {
 	ProductGetByCategorySlugDocument,
+	ProductGetByIdDocument,
 	ProductGetListDocument,
 	type ProductListItemFragment,
 } from "@/gql/graphql";
@@ -20,12 +21,12 @@ export const getProductsList = async (
 };
 
 export const getProductsListByCategorySlug = async (slug: string) => {
-	const categories = await executeGraphql(
+	const graphqlResponse = await executeGraphql(
 		ProductGetByCategorySlugDocument,
 		{ slug: slug },
 	);
 
-	const products = categories.categories[0]?.products;
+	const products = graphqlResponse.categories[0]?.products;
 
 	if (!products) {
 		throw notFound();
@@ -35,9 +36,18 @@ export const getProductsListByCategorySlug = async (slug: string) => {
 };
 
 export const getProductById = async (
-	_id: ProductListItemFragment["id"],
+	id: ProductListItemFragment["id"],
 ) => {
-	// @todo:  GRAPGQL
+	const graphqlResponse = await executeGraphql(
+		ProductGetByIdDocument,
+		{
+			id: id,
+		},
+	);
 
-	throw new Error("Not implemented");
+	if (!graphqlResponse.product) {
+		throw notFound();
+	}
+
+	return graphqlResponse.product;
 };

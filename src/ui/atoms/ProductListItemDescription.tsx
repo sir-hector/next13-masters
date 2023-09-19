@@ -1,12 +1,26 @@
-import { type ProductListItemFragment } from "@/gql/graphql";
+import { type FragmentType, graphql, getFragmentData } from "@/gql";
+
+const PrductListItemDescription_Product = graphql(/* GraphQL */ `
+	fragment ProductListItem_Product on Product {
+		name
+		price
+		categories(first: 1) {
+			name
+		}
+	}
+`);
 
 type ProductListItemDescriptionProps = {
-	product: ProductListItemFragment;
+	product: FragmentType<typeof PrductListItemDescription_Product>;
 };
 
-export const ProductListItemDescription = ({
-	product: { name, categories, price },
-}: ProductListItemDescriptionProps) => {
+export const ProductListItemDescription = (
+	props: ProductListItemDescriptionProps,
+) => {
+	const { name, categories, price } = getFragmentData(
+		PrductListItemDescription_Product,
+		props.product,
+	);
 	return (
 		<div className="flex flex-col justify-between">
 			<div>

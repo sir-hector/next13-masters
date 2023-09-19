@@ -3,19 +3,17 @@ import { ProductListItemDescription } from "@/ui/atoms/ProductListItemDescriptio
 import { ProductCoverImage } from "@/ui/atoms/ProductCoverImage";
 import { type ProductListItemFragment } from "@/gql/graphql";
 
-type ProductListItemProps = {
+type ProductListCoverImageProps = {
 	product: ProductListItemFragment;
 };
 
 export const ProductListItem = ({
 	product,
-}: ProductListItemProps) => {
+}: ProductListCoverImageProps) => {
 	return (
 		<article className="flex flex-col">
 			<Link href={`/product/${product.id}`}>
-				{product.images[0] && (
-					<ProductCoverImage url={product.images[0].url} alt="" />
-				)}
+				<ProductCoverImage product={product} />
 				<ProductListItemDescription product={product} />
 			</Link>
 		</article>

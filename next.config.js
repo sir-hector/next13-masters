@@ -4,6 +4,9 @@ const nextConfig = {
     experimental: {
         mdxRs: true,
         typedRoutes: true,
+    },
+    images: {
+        domains: ['media.graphassets.com'],
     }
 }
 

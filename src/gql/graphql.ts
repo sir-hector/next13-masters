@@ -10681,6 +10681,11 @@ export type _SystemDateTimeFieldVariation =
   | 'combined'
   | 'localization';
 
+export type CategoryGetListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CategoryGetListQuery = { categories: Array<{ id: string, name: string, slug: string }> };
+
 export type ProductGetByCategorySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
@@ -10750,6 +10755,15 @@ fragment ProductListItem_Product on Product {
     name
   }
 }`, {"fragmentName":"ProductListItem"}) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
+export const CategoryGetListDocument = new TypedDocumentString(`
+    query CategoryGetList {
+  categories(first: 10) {
+    id
+    name
+    slug
+  }
+}
+    `) as unknown as TypedDocumentString<CategoryGetListQuery, CategoryGetListQueryVariables>;
 export const ProductGetByCategorySlugDocument = new TypedDocumentString(`
     query ProductGetByCategorySlug($slug: String!) {
   categories(where: {slug: $slug}) {

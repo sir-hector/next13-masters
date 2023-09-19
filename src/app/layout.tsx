@@ -19,12 +19,12 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={inter.className}>
 				<nav className="flex items-center justify-between p-4">
-					<div className="text-2xl font-bold">Logo</div>
+					<div className="text-2xl font-bold">Next.js masters</div>
 					<ul className="flex">
 						<li className="mx-4">
 							<ActiveLink
 								href="/"
-								className="hover:text-blue border-blue text-blue-500"
+								className="hover:text-blue border-black text-white"
 								activeClassName="underline border-black"
 							>
 								Home
@@ -33,11 +33,21 @@ export default function RootLayout({
 						<li className="mx-4">
 							<ActiveLink
 								href="/products"
-								className="hover:text-blue border-blue text-blue-500"
-								activeClassName="underline border-black"
-								exact={false}
+								className="hover:text-blue border-black text-white"
+								activeClassName="underline border-white"
+								exact={true}
 							>
 								All
+							</ActiveLink>
+						</li>
+						<li className="mx-4">
+							<ActiveLink
+								href="/products/categories"
+								className="hover:text-blue border-black text-white"
+								activeClassName="underline border-white"
+								exact={false}
+							>
+								Categories
 							</ActiveLink>
 						</li>
 					</ul>

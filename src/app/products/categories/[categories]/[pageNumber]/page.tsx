@@ -10,7 +10,7 @@ export const generateStaticParams = async () => {
 export default async function CategoryProductPage({
 	params,
 }: {
-	params: { pageNumber: string };
+	params: { categories: string; pageNumber: string };
 }) {
 	console.log(params);
 	// const numberOfProducts = 15;
@@ -23,7 +23,9 @@ export default async function CategoryProductPage({
 
 	return (
 		<div>
-			<h1>Produkty strona: {params.pageNumber}</h1>
+			<h1>
+				Produkty strona: {params.pageNumber} {params.categories}
+			</h1>
 			<ProductList products={products} />
 			<Pagination numberOfPages={numberOfPages} />
 		</div>

@@ -33,9 +33,6 @@ export const ProductListItemDescription = (
 			</div>
 			<div className="flex justify-between">
 				<p className="text-lg font-semibold">{price}zł</p>
-				<button className="rounded-md bg-blue-500 px-4 py-2 text-lg font-semibold text-white">
-					Dodaj do koszyka
-				</button>
 			</div>
 		</div>
 	);

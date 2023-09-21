@@ -1,0 +1,10 @@
+query ProductsGetListByName($name: String!) {
+	products(where: { name_contains: $name }) {
+		...ProductListItem
+	}
+	productsConnection(where: { name_contains: $name }) {
+		aggregate {
+			count
+		}
+	}
+}

@@ -10727,6 +10727,13 @@ export type ProductListItemFragment = (
   & { ' $fragmentRefs'?: { 'ProductListItem_ProductFragment': ProductListItem_ProductFragment;'ProductListItemImage_ProductFragment': ProductListItemImage_ProductFragment } }
 ) & { ' $fragmentName'?: 'ProductListItemFragment' };
 
+export type ProductsGetListByNameQueryVariables = Exact<{
+  name: Scalars['String']['input'];
+}>;
+
+
+export type ProductsGetListByNameQuery = { products: Array<{ ' $fragmentRefs'?: { 'ProductListItemFragment': ProductListItemFragment } }>, productsConnection: { aggregate: { count: number } } };
+
 export type ProductListItemImage_ProductFragment = { images: Array<{ url: string }> } & { ' $fragmentName'?: 'ProductListItemImage_ProductFragment' };
 
 export type ProductListItem_ProductFragment = { name: string, price: number, categories: Array<{ name: string, slug: string }> } & { ' $fragmentName'?: 'ProductListItem_ProductFragment' };
@@ -10898,3 +10905,32 @@ fragment ProductListItem_Product on Product {
     slug
   }
 }`) as unknown as TypedDocumentString<ProductGetListQuery, ProductGetListQueryVariables>;
+export const ProductsGetListByNameDocument = new TypedDocumentString(`
+    query ProductsGetListByName($name: String!) {
+  products(where: {name_contains: $name}) {
+    ...ProductListItem
+  }
+  productsConnection(where: {name_contains: $name}) {
+    aggregate {
+      count
+    }
+  }
+}
+    fragment ProductListItem on Product {
+  id
+  ...ProductListItem_Product
+  ...ProductListItemImage_Product
+}
+fragment ProductListItemImage_Product on Product {
+  images(first: 1) {
+    url
+  }
+}
+fragment ProductListItem_Product on Product {
+  name
+  price
+  categories(first: 1) {
+    name
+    slug
+  }
+}`) as unknown as TypedDocumentString<ProductsGetListByNameQuery, ProductsGetListByNameQueryVariables>;

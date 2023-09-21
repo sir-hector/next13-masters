@@ -1,14 +1,23 @@
-export default function Page({
+import { getProductsByName } from "../api/products";
+import { ProductList } from "@/ui/organisms/ProductList";
+import { type ProductListItemFragment } from "@/gql/graphql";
+
+export default async function Page({
 	searchParams,
 }: {
-	searchParams: { [key: string]: string | string[] | undefined };
+	searchParams: { [key: string]: string };
 }) {
+	const query = searchParams["query"];
+
+	const products = (await getProductsByName(
+		query,
+	)) as ProductListItemFragment[];
+
 	return (
 		<div>
 			<h1>Search Page</h1>
 			<br />
-			{searchParams ? JSON.stringify(searchParams) : ""}
-			Post2
+			<ProductList products={products} />
 		</div>
 	);
 }

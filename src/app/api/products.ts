@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { executeGraphql } from "./graphqlApi";
 import {
+	ProductCountByCategoryDocument,
+	ProductCountDocument,
 	ProductGetByCategorySlugDocument,
 	ProductGetByIdDocument,
 	ProductGetListDocument,
@@ -11,19 +13,39 @@ export const getProductsList = async (
 	productAmount: number,
 	offset: number,
 ) => {
-	console.log(productAmount, offset);
 	const graphqlResponse = await executeGraphql(
 		ProductGetListDocument,
-		{},
+		{ number: productAmount, offset },
 	);
-
 	return graphqlResponse.products;
 };
 
-export const getProductsListByCategorySlug = async (slug: string) => {
+export const getProductCount = async () => {
+	const graphqlResponse = await executeGraphql(
+		ProductCountDocument,
+		{},
+	);
+	return graphqlResponse.productsConnection.aggregate.count;
+};
+
+export const getProductCountByCategory = async (
+	category: string,
+): Promise<number> => {
+	const graphqlResponse = await executeGraphql(
+		ProductCountByCategoryDocument,
+		{ category },
+	);
+	return graphqlResponse.productsConnection.aggregate.count;
+};
+
+export const getProductsListByCategorySlug = async (
+	slug: string,
+	productAmount: number,
+	offset: number,
+) => {
 	const graphqlResponse = await executeGraphql(
 		ProductGetByCategorySlugDocument,
-		{ slug: slug },
+		{ slug: slug, number: productAmount, offset },
 	);
 
 	const products = graphqlResponse.categories[0]?.products;

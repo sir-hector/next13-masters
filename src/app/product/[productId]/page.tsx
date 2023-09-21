@@ -2,6 +2,9 @@ import { Suspense } from "react";
 import { type Metadata } from "next";
 import { getProductById } from "@/app/api/products";
 import { SuggestedProducts } from "@/ui/organisms/SuggestedProducts";
+import { type ProductColor, type ProductSize } from "@/gql/graphql";
+import { ProductColorVariantSelect } from "@/ui/molecules/ProductColorVariantSelect";
+import { ProductSizeVariantSelect } from "@/ui/molecules/ProductSizeVariantSelect";
 
 // export const generateStaticParams = async () => {
 // 	const products = await getProductsList(5, 0);
@@ -28,6 +31,18 @@ export default async function SigleProduct({
 }) {
 	const product = await getProductById(params.productId);
 
+	const colorVariants: ProductColor[] = [
+		...new Set<ProductColor>(
+			product.variants.map((variant) => variant.color),
+		),
+	];
+
+	const sizeVariants: ProductSize[] = [
+		...new Set<ProductSize>(
+			product.variants.map((variant) => variant.size),
+		),
+	];
+
 	return (
 		<>
 			<h1>Product : {product.name}</h1>
@@ -47,6 +62,11 @@ export default async function SigleProduct({
 								</p>
 							)}
 							<p>{product?.description}</p>
+						</div>
+						{/* PRODUCT VARRIANTS */}
+						<div className="flex gap-2">
+							<ProductColorVariantSelect variants={colorVariants} />
+							<ProductSizeVariantSelect variants={sizeVariants} />
 						</div>
 						<div className="flex justify-between">
 							<p className="text-lg font-semibold">

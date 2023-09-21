@@ -5,18 +5,20 @@ import { type ProductListItemFragment } from "@/gql/graphql";
 
 export default async function ProductPage() {
 	const products = (await getProductsList(
-		5,
+		3,
 		0,
 	)) as ProductListItemFragment[];
 
 	return (
 		<section className="mx-auto p-12">
 			<ProductList products={products} />
-			<Link href={"/products/1"}>
-				<button className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700">
-					Pokaz więcej
-				</button>
-			</Link>
+			<div className="mt-5 flex justify-center">
+				<Link href={"/products/1"}>
+					<button className="border-2 border-white p-3 font-bold text-white hover:bg-white hover:text-black">
+						Pokaz więcej
+					</button>
+				</Link>
+			</div>
 		</section>
 	);
 }

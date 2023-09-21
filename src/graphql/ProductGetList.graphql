@@ -1,5 +1,10 @@
-query ProductGetList {
-	products(first: 10) {
+query ProductGetList($number: Int!, $offset: Int!) {
+	products(first: $number, skip: $offset) {
 		...ProductListItem
+	}
+	productsConnection {
+		aggregate {
+			count
+		}
 	}
 }

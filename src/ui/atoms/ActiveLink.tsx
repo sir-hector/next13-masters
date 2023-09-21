@@ -12,11 +12,20 @@ type ActiveLinkProps<T extends string> = {
 	className: string;
 	activeClassName: string;
 	exact?: boolean;
-}
+};
 
-export const ActiveLink = <T extends string> ({ href, children, className, activeClassName, exact = true}: ActiveLinkProps<T>) => {
+export const ActiveLink = <T extends string>({
+	href,
+	children,
+	className,
+	activeClassName,
+	exact = true,
+}: ActiveLinkProps<T>) => {
 	const pathname = usePathname();
-	const isActive = exact ? pathname === href : pathname.startsWith(href);
+	const isActive = exact
+		? pathname === href
+		: pathname.startsWith(href);
+
 	return (
 		<Link
 			href={href}

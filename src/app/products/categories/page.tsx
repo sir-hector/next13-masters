@@ -7,7 +7,7 @@ export default async function ProductPage() {
 	return (
 		<section className="mx-auto p-12">
 			<h2 className="text-center font-mono text-3xl	font-bold">
-				CATGORIES
+				CATEGORIES
 			</h2>
 			<div className="mt-2 flex flex-row justify-center gap-2">
 				{categories.map((category) => (

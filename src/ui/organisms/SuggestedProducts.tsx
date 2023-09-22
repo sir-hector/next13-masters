@@ -14,5 +14,10 @@ export const SuggestedProducts = async ({
 		0,
 	)) as ProductListItemFragment[];
 
-	return <ProductList products={products.slice(-4)} />;
+	return (
+		<ProductList
+			products={products.slice(-4)}
+			data-testid="related-products"
+		/>
+	);
 };

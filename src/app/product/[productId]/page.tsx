@@ -19,7 +19,7 @@ export const generateMetadata = async ({
 	const product = await getProductById(params.productId);
 
 	return {
-		title: `Product: ${product.name}`,
+		title: `Product : ${product.name}`,
 		description: product.description,
 	};
 };
@@ -31,15 +31,41 @@ export default async function SigleProduct({
 }) {
 	const product = await getProductById(params.productId);
 
-	const colorVariants: ProductColor[] = [
-		...new Set<ProductColor>(
-			product.variants.map((variant) => variant.color),
+	const colorSet: ProductColor[] = [
+		...new Set(
+			product.colorVariants
+				.filter(
+					(variant): variant is { color: ProductColor } =>
+						"color" in variant,
+				)
+				.map((variant) => variant.color),
+		),
+		...new Set(
+			product.sizeColorVariants
+				.filter(
+					(variant): variant is { color: ProductColor } =>
+						"color" in variant,
+				)
+				.map((variant) => variant.color),
 		),
 	];
 
-	const sizeVariants: ProductSize[] = [
-		...new Set<ProductSize>(
-			product.variants.map((variant) => variant.size),
+	const sizeSet: ProductSize[] = [
+		...new Set(
+			product.sizeVariants
+				.filter(
+					(variant): variant is { size: ProductSize } =>
+						"size" in variant,
+				)
+				.map((variant) => variant.size),
+		),
+		...new Set(
+			product.sizeColorVariants
+				.filter(
+					(variant): variant is { size: ProductSize } =>
+						"size" in variant,
+				)
+				.map((variant) => variant.size),
 		),
 	];
 
@@ -65,8 +91,8 @@ export default async function SigleProduct({
 						</div>
 						{/* PRODUCT VARRIANTS */}
 						<div className="flex gap-2">
-							<ProductColorVariantSelect variants={colorVariants} />
-							<ProductSizeVariantSelect variants={sizeVariants} />
+							<ProductColorVariantSelect variants={colorSet} />
+							<ProductSizeVariantSelect variants={sizeSet} />
 						</div>
 						<div className="flex justify-between">
 							<p className="text-lg font-semibold">

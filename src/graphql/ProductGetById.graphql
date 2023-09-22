@@ -11,18 +11,22 @@ query ProductGetById($id: ID!) {
 		images(first: 1) {
 			url
 		}
-		variants {
+		sizeColorVariants: variants {
 			... on ProductSizeColorVariant {
 				id
 				name
 				color
 				size
 			}
+		}
+		colorVariants: variants {
 			... on ProductColorVariant {
 				id
 				name
 				color
 			}
+		}
+		sizeVariants: variants {
 			... on ProductSizeVariant {
 				id
 				name

@@ -17,7 +17,7 @@ export default async function Page({
 		<div>
 			<h1>Search Page</h1>
 			<br />
-			<ProductList products={products} />
+			<ProductList test-id="products-list" products={products} />
 		</div>
 	);
 }

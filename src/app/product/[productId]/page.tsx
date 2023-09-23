@@ -1,10 +1,13 @@
+import { cookies } from "next/headers";
 import { Suspense } from "react";
 import { type Metadata } from "next";
+import { AddToCartButton } from "./AddToCartButton";
 import { getProductById } from "@/app/api/products";
 import { SuggestedProducts } from "@/ui/organisms/SuggestedProducts";
 import { type ProductColor, type ProductSize } from "@/gql/graphql";
 import { ProductColorVariantSelect } from "@/ui/molecules/ProductColorVariantSelect";
 import { ProductSizeVariantSelect } from "@/ui/molecules/ProductSizeVariantSelect";
+import { addProductToCart, getOrCreateCart } from "@/app/api/cart";
 
 // export const generateStaticParams = async () => {
 // 	const products = await getProductsList(5, 0);
@@ -69,6 +72,16 @@ export default async function SigleProduct({
 		),
 	];
 
+	async function addToCartAction(_form: FormData) {
+		"use server";
+		const cart = await getOrCreateCart();
+		cookies().set("cartId", cart.id, {
+			httpOnly: true,
+			sameSite: "lax",
+		});
+		await addProductToCart(cart.id, params.productId);
+	}
+
 	return (
 		<>
 			<h1>Product : {product.name}</h1>
@@ -99,6 +112,14 @@ export default async function SigleProduct({
 								{product.price}zł
 							</p>
 						</div>
+						<form action={addToCartAction}>
+							<input
+								type="hidden"
+								name="productId"
+								value={product.id}
+							/>
+							<AddToCartButton />
+						</form>
 					</div>
 				</div>
 			</article>

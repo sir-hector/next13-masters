@@ -1,0 +1,11 @@
+mutation CartCreate {
+	createOrder(
+		data: {
+			total: 0
+			email: "krauskarol7@gmail.com"
+			stripeCheckoutId: ""
+		}
+	) {
+		id
+	}
+}

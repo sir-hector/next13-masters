@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { getCartFromCookies } from "../api/cart";
+import { IncrementProductQuantity } from "./IncrementProductQuantity";
 
 export default async function Page() {
 	const cart = await getCartFromCookies();
@@ -24,7 +25,12 @@ export default async function Page() {
 							item.product && (
 								<tr key={item.id}>
 									<td>{item.product.name}</td>
-									<td>{item.quantity}</td>
+									<td>
+										<IncrementProductQuantity
+											quantity={item.quantity}
+											itemId={item.id}
+										/>
+									</td>
 									<td>{item.product.price}</td>
 								</tr>
 							),

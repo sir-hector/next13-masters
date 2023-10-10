@@ -7,8 +7,11 @@ export const changeItemQuantity = async (
 	itemId: string,
 	quantity: number,
 ) => {
-	return executeGraphql(CartSetProductQuntityDocument, {
-		itemId,
-		quantity,
+	return executeGraphql({
+		query: CartSetProductQuntityDocument,
+		variables: {
+			itemId,
+			quantity,
+		},
 	});
 };

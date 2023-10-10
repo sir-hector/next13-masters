@@ -14,28 +14,28 @@ export const getProductsList = async (
 	productAmount: number,
 	offset: number,
 ) => {
-	const graphqlResponse = await executeGraphql(
-		ProductGetListDocument,
-		{ number: productAmount, offset },
-	);
+	const graphqlResponse = await executeGraphql({
+		query: ProductGetListDocument,
+		variables: { number: productAmount, offset },
+	});
 	return graphqlResponse.products;
 };
 
 export const getProductCount = async () => {
-	const graphqlResponse = await executeGraphql(
-		ProductCountDocument,
-		{},
-	);
+	const graphqlResponse = await executeGraphql({
+		query: ProductCountDocument,
+		variables: {},
+	});
 	return graphqlResponse.productsConnection.aggregate.count;
 };
 
 export const getProductCountByCategory = async (
 	category: string,
 ): Promise<number> => {
-	const graphqlResponse = await executeGraphql(
-		ProductCountByCategoryDocument,
-		{ category },
-	);
+	const graphqlResponse = await executeGraphql({
+		query: ProductCountByCategoryDocument,
+		variables: { category },
+	});
 	return graphqlResponse.productsConnection.aggregate.count;
 };
 
@@ -44,10 +44,10 @@ export const getProductsListByCategorySlug = async (
 	productAmount: number,
 	offset: number,
 ) => {
-	const graphqlResponse = await executeGraphql(
-		ProductGetByCategorySlugDocument,
-		{ slug: slug, number: productAmount, offset },
-	);
+	const graphqlResponse = await executeGraphql({
+		query: ProductGetByCategorySlugDocument,
+		variables: { slug: slug, number: productAmount, offset },
+	});
 
 	const products = graphqlResponse.categories[0]?.products;
 
@@ -61,12 +61,12 @@ export const getProductsListByCategorySlug = async (
 export const getProductById = async (
 	id: ProductListItemFragment["id"],
 ) => {
-	const graphqlResponse = await executeGraphql(
-		ProductGetByIdDocument,
-		{
+	const graphqlResponse = await executeGraphql({
+		query: ProductGetByIdDocument,
+		variables: {
 			id: id,
 		},
-	);
+	});
 
 	if (!graphqlResponse.product) {
 		throw notFound();
@@ -80,10 +80,10 @@ export const getProductsByName = async (name?: string) => {
 		throw notFound();
 	}
 
-	const graphqlResponse = await executeGraphql(
-		ProductsGetListByNameDocument,
-		{ name: name },
-	);
+	const graphqlResponse = await executeGraphql({
+		query: ProductsGetListByNameDocument,
+		variables: { name: name },
+	});
 
 	if (!graphqlResponse.products) {
 		throw notFound();

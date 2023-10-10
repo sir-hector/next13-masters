@@ -8,6 +8,7 @@ import { type ProductColor, type ProductSize } from "@/gql/graphql";
 import { ProductColorVariantSelect } from "@/ui/molecules/ProductColorVariantSelect";
 import { ProductSizeVariantSelect } from "@/ui/molecules/ProductSizeVariantSelect";
 import { addProductToCart, getOrCreateCart } from "@/app/api/cart";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 // export const generateStaticParams = async () => {
 // 	const products = await getProductsList(5, 0);
@@ -76,6 +77,10 @@ export default async function SigleProduct({
 		"use server";
 		const cart = await getOrCreateCart();
 		await addProductToCart(cart.id, params.productId);
+
+		// ?
+		// revalidatePath("/");
+		revalidateTag("cart");
 	}
 
 	return (

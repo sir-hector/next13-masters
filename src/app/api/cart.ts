@@ -8,10 +8,22 @@ import {
 import { executeGraphql } from "@/app/api/graphqlApi";
 
 export async function getOrCreateCart() {
-	const cart = await getCartFromCookies();
-	if (cart) {
-		return cart;
+	const existingCart = await getCartFromCookies();
+	if (existingCart) {
+		return existingCart;
 	}
+
+	const cart = await createCart();
+
+	if (!cart.createOrder) {
+		throw new Error("failed to create cart");
+	}
+
+	cookies().set("cartId", cart.createOrder.id, {
+		httpOnly: true,
+		sameSite: "lax",
+	});
+	return cart.createOrder;
 }
 
 export async function getCartFromCookies() {

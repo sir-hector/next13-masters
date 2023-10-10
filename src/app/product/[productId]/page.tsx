@@ -75,10 +75,6 @@ export default async function SigleProduct({
 	async function addToCartAction(_form: FormData) {
 		"use server";
 		const cart = await getOrCreateCart();
-		cookies().set("cartId", cart.id, {
-			httpOnly: true,
-			sameSite: "lax",
-		});
 		await addProductToCart(cart.id, params.productId);
 	}
 

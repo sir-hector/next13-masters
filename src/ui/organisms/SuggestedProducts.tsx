@@ -1,4 +1,4 @@
-import { getProductsListByCategorySlug } from "@/app/api/products";
+import { getProductsListByCategorySlug } from "@/api/products";
 import { type ProductListItemFragment } from "@/gql/graphql";
 import { ProductList } from "@/ui/organisms/ProductList";
 

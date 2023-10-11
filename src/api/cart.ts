@@ -5,7 +5,7 @@ import {
 	CartGetByIdDocument,
 	ProductGetByIdDocument,
 } from "@/gql/graphql";
-import { executeGraphql } from "@/app/api/graphqlApi";
+import { executeGraphql } from "@/api/graphqlApi";
 
 export async function getOrCreateCart() {
 	const existingCart = await getCartFromCookies();
@@ -34,6 +34,9 @@ export async function getCartFromCookies() {
 			variables: {
 				id: cartId,
 			},
+			next: {
+				tags: ["cart"],
+			},
 		});
 		if (cart.order) {
 			return cart.order;
@@ -42,7 +45,11 @@ export async function getCartFromCookies() {
 }
 
 export function createCart() {
-	return executeGraphql({ query: CartCreateDocument, variables: {} });
+	return executeGraphql({
+		query: CartCreateDocument,
+		variables: {},
+		cache: "no-store",
+	});
 }
 
 export async function addProductToCart(
@@ -54,6 +61,7 @@ export async function addProductToCart(
 		variables: {
 			id: productId,
 		},
+		cache: "no-store",
 	});
 	if (!product) {
 		throw new Error("Product not found");
@@ -65,5 +73,6 @@ export async function addProductToCart(
 			productId: productId,
 			total: product.price,
 		},
+		cache: "no-store",
 	});
 }

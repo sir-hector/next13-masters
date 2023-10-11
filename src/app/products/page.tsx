@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getProductsList } from "../api/products";
+import { getProductsList } from "@/api/products";
 import { ProductList } from "@/ui/organisms/ProductList";
 import { type ProductListItemFragment } from "@/gql/graphql";
 

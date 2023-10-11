@@ -1,11 +1,11 @@
 import { Pagination } from "@/ui/organisms/Pagination";
 import { ProductList } from "@/ui/organisms/ProductList";
-import { getProductCount, getProductsList } from "@/app/api/products";
+import { getProductCount, getProductsList } from "@/api/products";
 import { type ProductListItemFragment } from "@/gql/graphql";
 
-export const generateStaticParams = async () => {
-	return [];
-};
+// export const generateStaticParams = async () => {
+// 	return [];
+// };
 
 export default async function CategoryProductPage({
 	params,

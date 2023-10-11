@@ -3,12 +3,12 @@ import { ProductList } from "@/ui/organisms/ProductList";
 import {
 	getProductCountByCategory,
 	getProductsListByCategorySlug,
-} from "@/app/api/products";
+} from "@/api/products";
 import { type ProductListItemFragment } from "@/gql/graphql";
 
-export const generateStaticParams = async () => {
-	return [];
-};
+// export const generateStaticParams = async () => {
+// 	return [];
+// };
 
 export default async function CategoryProductPage({
 	params,

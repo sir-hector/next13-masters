@@ -1,14 +1,13 @@
-import { cookies } from "next/headers";
 import { Suspense } from "react";
 import { type Metadata } from "next";
 import { AddToCartButton } from "./AddToCartButton";
-import { getProductById } from "@/app/api/products";
+import { getProductById } from "@/api/products";
 import { SuggestedProducts } from "@/ui/organisms/SuggestedProducts";
 import { type ProductColor, type ProductSize } from "@/gql/graphql";
 import { ProductColorVariantSelect } from "@/ui/molecules/ProductColorVariantSelect";
 import { ProductSizeVariantSelect } from "@/ui/molecules/ProductSizeVariantSelect";
-import { addProductToCart, getOrCreateCart } from "@/app/api/cart";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { addProductToCart, getOrCreateCart } from "@/api/cart";
+import { revalidateTag } from "next/cache";
 
 // export const generateStaticParams = async () => {
 // 	const products = await getProductsList(5, 0);

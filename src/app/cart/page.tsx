@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
-import { getCartFromCookies } from "../api/cart";
+import { getCartFromCookies } from "@/api/cart";
 import { IncrementProductQuantity } from "./IncrementProductQuantity";
+import { RemoveCartItem } from "./RemoveCartItem";
 
 export default async function Page() {
 	const cart = await getCartFromCookies();
@@ -32,6 +33,9 @@ export default async function Page() {
 										/>
 									</td>
 									<td>{item.product.price}</td>
+									<td>
+										<RemoveCartItem itemId={item.id} />
+									</td>
 								</tr>
 							),
 					)}

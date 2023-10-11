@@ -1,4 +1,4 @@
-import { getProductsByName } from "../api/products";
+import { getProductsByName } from "@/api/products";
 import { ProductList } from "@/ui/organisms/ProductList";
 import { type ProductListItemFragment } from "@/gql/graphql";
 

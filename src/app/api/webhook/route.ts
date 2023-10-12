@@ -3,15 +3,17 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest): Promise<Response> {
 	const json: unknown = await request.json();
-	console.log(json);
 
 	if (
 		typeof json === "object" &&
 		json &&
-		"productId" in json &&
-		typeof json.productId === "string"
+		"data" in json &&
+		typeof json.data === "object" &&
+		json.data &&
+		"id" in json.data &&
+		typeof json.data.id === "string"
 	) {
-		revalidatePath(`/product/${json.productId}`);
+		revalidatePath(`/product/${json.data.id}`);
 		revalidatePath(`/products`);
 		return NextResponse.json({}, { status: 201 });
 	}

@@ -2,8 +2,6 @@ import { redirect } from "next/navigation";
 import { getCartFromCookies } from "@/api/cart";
 import { IncrementProductQuantity } from "./IncrementProductQuantity";
 import { RemoveCartItem } from "./RemoveCartItem";
-import Stripe from "stripe";
-import { cookies } from "next/headers";
 import { handlePaymentAction } from "./actions";
 
 export default async function Page() {

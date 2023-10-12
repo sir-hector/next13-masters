@@ -48,21 +48,21 @@ export async function handlePaymentAction() {
 		return;
 	}
 
-	const line_items = cart.orderItems.map((item) =>
-		item.product
-			? {
-					price_data: {
-						currency: "usd",
-						product_data: {
-							name: item.product.name,
-							description: item.product.name,
-						},
-						unit_amount: item.product.price,
-					},
-					quantity: item.quantity,
-			  }
-			: null,
-	);
+	// const line_items = cart.orderItems.map((item) =>
+	// 	item.product
+	// 		? {
+	// 				price_data: {
+	// 					currency: "usd",
+	// 					product_data: {
+	// 						name: item.product.name,
+	// 						description: item.product.name,
+	// 					},
+	// 					unit_amount: item.product.price,
+	// 				},
+	// 				quantity: item.quantity,
+	// 		  }
+	// 		: null,
+	// );
 
 	// TO DO - line_items does not work
 

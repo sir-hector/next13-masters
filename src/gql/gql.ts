@@ -27,6 +27,7 @@ const documents = {
     "query ProductGetList($number: Int!, $offset: Int!) {\n  products(first: $number, skip: $offset) {\n    ...ProductListItem\n  }\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductGetListDocument,
     "fragment ProductListItem on Product {\n  id\n  ...ProductListItem_Product\n  ...ProductListItemImage_Product\n}": types.ProductListItemFragmentDoc,
     "query ProductsGetListByName($name: String!) {\n  products(where: {name_contains: $name}) {\n    ...ProductListItem\n  }\n  productsConnection(where: {name_contains: $name}) {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductsGetListByNameDocument,
+    "mutation ReviewCreate($productId: ID!) {\n  createReview(\n    data: {content: \"content\", email: \"email\", headline: \"headline\", name: \"name\", product: {connect: {id: $productId}}, rating: 1}\n  ) {\n    id\n  }\n}": types.ReviewCreateDocument,
     "\n\tfragment ProductListItemImage_Product on Product {\n\t\timages(first: 1) {\n\t\t\turl\n\t\t}\n\t}\n": types.ProductListItemImage_ProductFragmentDoc,
     "\n\tfragment ProductListItem_Product on Product {\n\t\tname\n\t\tprice\n\t\tcategories(first: 1) {\n\t\t\tname\n\t\t\tslug\n\t\t}\n\t}\n": types.ProductListItem_ProductFragmentDoc,
 };
@@ -83,6 +84,10 @@ export function graphql(source: "fragment ProductListItem on Product {\n  id\n  
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query ProductsGetListByName($name: String!) {\n  products(where: {name_contains: $name}) {\n    ...ProductListItem\n  }\n  productsConnection(where: {name_contains: $name}) {\n    aggregate {\n      count\n    }\n  }\n}"): typeof import('./graphql').ProductsGetListByNameDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation ReviewCreate($productId: ID!) {\n  createReview(\n    data: {content: \"content\", email: \"email\", headline: \"headline\", name: \"name\", product: {connect: {id: $productId}}, rating: 1}\n  ) {\n    id\n  }\n}"): typeof import('./graphql').ReviewCreateDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

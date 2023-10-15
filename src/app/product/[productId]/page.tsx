@@ -8,6 +8,7 @@ import { ProductColorVariantSelect } from "@/ui/molecules/ProductColorVariantSel
 import { ProductSizeVariantSelect } from "@/ui/molecules/ProductSizeVariantSelect";
 import { addProductToCart, getOrCreateCart } from "@/api/cart";
 import { revalidateTag } from "next/cache";
+import { ProductReview } from "./ProductReview";
 
 // export const generateStaticParams = async () => {
 // 	const products = await getProductsList(5, 0);
@@ -130,6 +131,7 @@ export default async function SigleProduct({
 					/>
 				</Suspense>
 			</aside>
+			<ProductReview productId={product.id} />
 		</>
 	);
 }

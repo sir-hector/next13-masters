@@ -10804,6 +10804,13 @@ export type ProductsGetListByNameQueryVariables = Exact<{
 
 export type ProductsGetListByNameQuery = { products: Array<{ ' $fragmentRefs'?: { 'ProductListItemFragment': ProductListItemFragment } }>, productsConnection: { aggregate: { count: number } } };
 
+export type ReviewCreateMutationVariables = Exact<{
+  productId: Scalars['ID']['input'];
+}>;
+
+
+export type ReviewCreateMutation = { createReview?: { id: string } | null };
+
 export type ProductListItemImage_ProductFragment = { images: Array<{ url: string }> } & { ' $fragmentName'?: 'ProductListItemImage_ProductFragment' };
 
 export type ProductListItem_ProductFragment = { name: string, price: number, categories: Array<{ name: string, slug: string }> } & { ' $fragmentName'?: 'ProductListItem_ProductFragment' };
@@ -11057,3 +11064,12 @@ fragment ProductListItem_Product on Product {
     slug
   }
 }`) as unknown as TypedDocumentString<ProductsGetListByNameQuery, ProductsGetListByNameQueryVariables>;
+export const ReviewCreateDocument = new TypedDocumentString(`
+    mutation ReviewCreate($productId: ID!) {
+  createReview(
+    data: {content: "content", email: "email", headline: "headline", name: "name", product: {connect: {id: $productId}}, rating: 1}
+  ) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<ReviewCreateMutation, ReviewCreateMutationVariables>;

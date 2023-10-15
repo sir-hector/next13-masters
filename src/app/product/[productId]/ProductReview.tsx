@@ -19,16 +19,22 @@ export const ProductReview = ({
 					action={async (e) => {
 						await addReview(
 							productId,
-							e.get("emial") as string,
+							e.get("content") as string,
 							e.get("email") as string,
-							e.get("email") as string,
-							e.get("email") as string,
+							e.get("headline") as string,
+							e.get("name") as string,
 							parseInt(e.get("rating") as string),
 						);
 						setOptimisticQuantity(true);
+						const form = document.getElementById(
+							"submitForm",
+						) as HTMLFormElement;
+
+						form.reset();
 					}}
 					data-testid="add-review-form"
 					className="flex flex-col items-center gap-5"
+					id="submitForm"
 				>
 					<div className="flex w-full justify-around ">
 						<label htmlFor="headline" className="w-1/3 ">

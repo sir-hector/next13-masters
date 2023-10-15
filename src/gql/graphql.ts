@@ -11067,7 +11067,7 @@ fragment ProductListItem_Product on Product {
 export const ReviewCreateDocument = new TypedDocumentString(`
     mutation ReviewCreate($productId: ID!) {
   createReview(
-    data: {content: "content", email: "email", headline: "headline", name: "name", product: {connect: {id: $productId}}, rating: 1}
+    data: {content: "content", email: "email@amil.pl", headline: "headline", name: "name", product: {connect: {id: $productId}}, rating: 1}
   ) {
     id
   }

@@ -8,6 +8,9 @@ const nextConfig = {
     },
     images: {
         domains: ['media.graphassets.com'],
+    },
+    env: {
+        GRAPHQL_URL: process.env.GRAPHQL_URL
     }
 }
 

@@ -1,6 +1,7 @@
 import { getProductsListByCategorySlug } from "@/api/products";
 import { type ProductListItemFragment } from "@/gql/graphql";
 import { ProductList } from "@/ui/organisms/ProductList";
+import { ProductListItem } from "../molecules/ProductListItem";
 
 export const SuggestedProducts = async ({
 	category,
@@ -15,9 +16,15 @@ export const SuggestedProducts = async ({
 	)) as ProductListItemFragment[];
 
 	return (
-		<ProductList
-			products={products.slice(-4)}
+		<ul
+			className="max-w flex flex-wrap justify-center gap-5"
 			data-testid="related-products"
-		/>
+		>
+			{products.map((product) => (
+				<li key={product.id}>
+					<ProductListItem product={product} />
+				</li>
+			))}
+		</ul>
 	);
 };

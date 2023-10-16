@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default async function HomePage() {
 	const products = (await getProductsList(
-		3,
+		4,
 		0,
 	)) as ProductListItemFragment[];
 	return (

@@ -8,6 +8,7 @@ import {
 	ProductGetListDocument,
 	ProductsGetListByNameDocument,
 	type ProductListItemFragment,
+	ProductGetByCollectionSlugDocument,
 } from "@/gql/graphql";
 
 export const getProductsList = async (
@@ -53,6 +54,25 @@ export const getProductsListByCategorySlug = async (
 	});
 
 	const products = graphqlResponse.categories[0]?.products;
+
+	if (!products) {
+		throw notFound();
+	}
+
+	return products;
+};
+
+export const getProductsListByCollectionSlug = async (
+	slug: string,
+	productAmount: number,
+	offset: number,
+) => {
+	const graphqlResponse = await executeGraphql({
+		query: ProductGetByCollectionSlugDocument,
+		variables: { slug: slug, number: productAmount, offset },
+	});
+
+	const products = graphqlResponse.collections[0]?.products;
 
 	if (!products) {
 		throw notFound();

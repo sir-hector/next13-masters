@@ -1,0 +1,9 @@
+query ProductCountByCollection($collection: String!) {
+	productsConnection(
+		where: { collections_every: { slug: $collection } }
+	) {
+		aggregate {
+			count
+		}
+	}
+}

@@ -3,10 +3,12 @@ import { ShoppingCart } from "lucide-react";
 import { ActiveLink } from "@/ui/atoms/ActiveLink";
 import { getCartFromCookies } from "@/api/cart";
 import Link from "next/link";
+import { getCollectionList } from "@/api/collecttions";
 
 export const NavigationBar = async () => {
 	const cart = await getCartFromCookies();
 	const quantity = cart?.orderItems.length ?? 0;
+	const collections = await getCollectionList();
 
 	return (
 		<div className="flex items-center justify-between p-4">
@@ -35,6 +37,20 @@ export const NavigationBar = async () => {
 									All
 								</ActiveLink>
 							</li>
+							{collections.map((collection) => {
+								return (
+									<li className="mx-4">
+										<ActiveLink
+											href={`/products/collections/${collection.slug}`}
+											className="hover:text-blue border-black text-white"
+											activeClassName="underline border-white"
+											exact={true}
+										>
+											{collection.name}
+										</ActiveLink>
+									</li>
+								);
+							})}
 							<li className="mx-4">
 								<ActiveLink
 									href="/products/categories"

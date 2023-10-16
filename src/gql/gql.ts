@@ -20,14 +20,18 @@ const documents = {
     "mutation CartRemoveProduct($itemId: ID!) {\n  deleteOrderItem(where: {id: $itemId}) {\n    id\n  }\n}": types.CartRemoveProductDocument,
     "mutation CartSetProductQuntity($itemId: ID!, $quantity: Int!) {\n  updateOrderItem(where: {id: $itemId}, data: {quantity: $quantity}) {\n    id\n  }\n}": types.CartSetProductQuntityDocument,
     "query CategoryGetList {\n  categories(first: 10) {\n    id\n    name\n    slug\n  }\n}": types.CategoryGetListDocument,
+    "query CollectionGetBySlug($slug: String!) {\n  collections(where: {slug: $slug}, first: 1) {\n    id\n    name\n    slug\n  }\n}": types.CollectionGetBySlugDocument,
+    "query CollectionGetList {\n  collections(first: 10) {\n    id\n    name\n    slug\n  }\n}": types.CollectionGetListDocument,
     "query ProductCount {\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductCountDocument,
     "query ProductCountByCategory($category: String!) {\n  productsConnection(where: {categories_every: {slug: $category}}) {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductCountByCategoryDocument,
+    "query ProductCountByCollection($collection: String!) {\n  productsConnection(where: {collections_every: {slug: $collection}}) {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductCountByCollectionDocument,
     "query ProductGetByCategorySlug($slug: String!, $number: Int!, $offset: Int!) {\n  categories(where: {slug: $slug}) {\n    products(first: $number, skip: $offset) {\n      ...ProductListItem\n    }\n  }\n}": types.ProductGetByCategorySlugDocument,
+    "query ProductGetByCollectionSlug($slug: String!, $number: Int!, $offset: Int!) {\n  collections(where: {slug: $slug}) {\n    products(first: $number, skip: $offset) {\n      ...ProductListItem\n    }\n  }\n}": types.ProductGetByCollectionSlugDocument,
     "query ProductGetById($id: ID!) {\n  product(where: {id: $id}) {\n    id\n    name\n    description\n    categories(first: 1) {\n      name\n      slug\n    }\n    price\n    images(first: 1) {\n      url\n    }\n    sizeColorVariants: variants {\n      ... on ProductSizeColorVariant {\n        id\n        name\n        color\n        size\n      }\n    }\n    colorVariants: variants {\n      ... on ProductColorVariant {\n        id\n        name\n        color\n      }\n    }\n    sizeVariants: variants {\n      ... on ProductSizeVariant {\n        id\n        name\n        size\n      }\n    }\n  }\n}": types.ProductGetByIdDocument,
     "query ProductGetList($number: Int!, $offset: Int!) {\n  products(first: $number, skip: $offset) {\n    ...ProductListItem\n  }\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductGetListDocument,
     "fragment ProductListItem on Product {\n  id\n  ...ProductListItem_Product\n  ...ProductListItemImage_Product\n}": types.ProductListItemFragmentDoc,
     "query ProductsGetListByName($name: String!) {\n  products(where: {name_contains: $name}) {\n    ...ProductListItem\n  }\n  productsConnection(where: {name_contains: $name}) {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductsGetListByNameDocument,
-    "mutation ReviewCreate($productId: ID!) {\n  createReview(\n    data: {content: \"content\", email: \"email@amil.pl\", headline: \"headline\", name: \"name\", product: {connect: {id: $productId}}, rating: 1}\n  ) {\n    id\n  }\n}": types.ReviewCreateDocument,
+    "mutation ReviewCreate($productId: ID!, $content: String!, $headline: String!, $name: String!, $rating: Int!, $email: String!) {\n  createReview(\n    data: {content: $content, email: $email, headline: $headline, name: $name, product: {connect: {id: $productId}}, rating: $rating}\n  ) {\n    id\n  }\n}": types.ReviewCreateDocument,
     "\n\tfragment ProductListItemImage_Product on Product {\n\t\timages(first: 1) {\n\t\t\turl\n\t\t}\n\t}\n": types.ProductListItemImage_ProductFragmentDoc,
     "\n\tfragment ProductListItem_Product on Product {\n\t\tname\n\t\tprice\n\t\tcategories(first: 1) {\n\t\t\tname\n\t\t\tslug\n\t\t}\n\t}\n": types.ProductListItem_ProductFragmentDoc,
 };
@@ -59,6 +63,14 @@ export function graphql(source: "query CategoryGetList {\n  categories(first: 10
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "query CollectionGetBySlug($slug: String!) {\n  collections(where: {slug: $slug}, first: 1) {\n    id\n    name\n    slug\n  }\n}"): typeof import('./graphql').CollectionGetBySlugDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query CollectionGetList {\n  collections(first: 10) {\n    id\n    name\n    slug\n  }\n}"): typeof import('./graphql').CollectionGetListDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "query ProductCount {\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}"): typeof import('./graphql').ProductCountDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -67,7 +79,15 @@ export function graphql(source: "query ProductCountByCategory($category: String!
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "query ProductCountByCollection($collection: String!) {\n  productsConnection(where: {collections_every: {slug: $collection}}) {\n    aggregate {\n      count\n    }\n  }\n}"): typeof import('./graphql').ProductCountByCollectionDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "query ProductGetByCategorySlug($slug: String!, $number: Int!, $offset: Int!) {\n  categories(where: {slug: $slug}) {\n    products(first: $number, skip: $offset) {\n      ...ProductListItem\n    }\n  }\n}"): typeof import('./graphql').ProductGetByCategorySlugDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query ProductGetByCollectionSlug($slug: String!, $number: Int!, $offset: Int!) {\n  collections(where: {slug: $slug}) {\n    products(first: $number, skip: $offset) {\n      ...ProductListItem\n    }\n  }\n}"): typeof import('./graphql').ProductGetByCollectionSlugDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -87,7 +107,7 @@ export function graphql(source: "query ProductsGetListByName($name: String!) {\n
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "mutation ReviewCreate($productId: ID!) {\n  createReview(\n    data: {content: \"content\", email: \"email@amil.pl\", headline: \"headline\", name: \"name\", product: {connect: {id: $productId}}, rating: 1}\n  ) {\n    id\n  }\n}"): typeof import('./graphql').ReviewCreateDocument;
+export function graphql(source: "mutation ReviewCreate($productId: ID!, $content: String!, $headline: String!, $name: String!, $rating: Int!, $email: String!) {\n  createReview(\n    data: {content: $content, email: $email, headline: $headline, name: $name, product: {connect: {id: $productId}}, rating: $rating}\n  ) {\n    id\n  }\n}"): typeof import('./graphql').ReviewCreateDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

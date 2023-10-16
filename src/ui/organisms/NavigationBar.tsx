@@ -32,7 +32,7 @@ export const NavigationBar = async () => {
 									href="/products"
 									className="hover:text-blue border-black text-white"
 									activeClassName="underline border-white"
-									exact={true}
+									exact={false}
 								>
 									All
 								</ActiveLink>

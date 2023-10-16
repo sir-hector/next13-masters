@@ -2,12 +2,16 @@ import Link from "next/link";
 import { getProductsList } from "@/api/products";
 import { ProductList } from "@/ui/organisms/ProductList";
 import { type ProductListItemFragment } from "@/gql/graphql";
+import { redirect } from "next/navigation";
 
 export default async function ProductPage() {
 	const products = (await getProductsList(
 		3,
 		0,
 	)) as ProductListItemFragment[];
+
+	redirect("/products/1");
+
 	return (
 		<section className="mx-auto p-12">
 			<ProductList products={products} />

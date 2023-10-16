@@ -69,9 +69,11 @@ export async function addProductToCart(
 		},
 		cache: "no-store",
 	});
+
 	if (!product) {
 		throw new Error("Product not found");
 	}
+
 	await executeGraphql({
 		query: CartAddProductDocument,
 		variables: {

@@ -5,10 +5,15 @@ import {
 	getProductsListByCategorySlug,
 } from "@/api/products";
 import { type ProductListItemFragment } from "@/gql/graphql";
+import { Metadata } from "next";
 
 // export const generateStaticParams = async () => {
 // 	return [];
 // };
+
+export const metadata: Metadata = {
+	title: "Categories",
+};
 
 export default async function CategoryProductPage({
 	params,
@@ -32,9 +37,7 @@ export default async function CategoryProductPage({
 
 	return (
 		<div>
-			<h1>
-				Produkty strona: {params.pageNumber} {params.categories}
-			</h1>
+			<h1>Categories</h1>
 			<ProductList products={products} />
 			<Pagination
 				numberOfPages={numberOfPages}

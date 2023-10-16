@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { getCategoriesList } from "@/api/categories";
+import { redirect } from "next/navigation";
 
 export default async function ProductPage() {
 	const categories = await getCategoriesList();
+
+	redirect("/products/categories/t-shirts/1");
 
 	return (
 		<section className="mx-auto p-12">

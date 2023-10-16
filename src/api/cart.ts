@@ -74,6 +74,13 @@ export async function addProductToCart(
 		throw new Error("Product not found");
 	}
 
+	const existingCart = await getCartFromCookies();
+	const alreadyInCart = existingCart?.orderItems.filter(
+		(orderItem) => orderItem.product?.id === productId,
+	);
+
+	console.log(alreadyInCart);
+
 	await executeGraphql({
 		query: CartAddProductDocument,
 		variables: {

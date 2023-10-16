@@ -76,10 +76,7 @@ export default async function SigleProduct({
 	async function addToCartAction(_form: FormData) {
 		"use server";
 		const cart = await getOrCreateCart();
-
-		console.log(cart);
 		await addProductToCart(cart.id, params.productId);
-
 		revalidateTag("cart");
 	}
 

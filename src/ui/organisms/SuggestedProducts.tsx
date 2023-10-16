@@ -1,6 +1,5 @@
 import { getProductsListByCategorySlug } from "@/api/products";
 import { type ProductListItemFragment } from "@/gql/graphql";
-import { ProductList } from "@/ui/organisms/ProductList";
 import { ProductListItem } from "../molecules/ProductListItem";
 
 export const SuggestedProducts = async ({
@@ -8,7 +7,6 @@ export const SuggestedProducts = async ({
 }: {
 	category: string;
 }) => {
-	console.log(category);
 	const products = (await getProductsListByCategorySlug(
 		category,
 		4,

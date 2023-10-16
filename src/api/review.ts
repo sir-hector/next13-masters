@@ -5,8 +5,8 @@ export async function addReview(
 	productId: string,
 	content: string,
 	email: string,
-	headline: String,
-	name: String,
+	headline: string,
+	name: string,
 	rating: number,
 ) {
 	return executeGraphql({

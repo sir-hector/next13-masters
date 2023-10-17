@@ -12,14 +12,3 @@ query ProductGetList(
 		}
 	}
 }
-
-input ProductOrderByInput {
-	name: Sort
-	price: Sort
-	averageRating: Sort
-}
-
-enum Sort {
-	asc
-	desc
-}

@@ -1,4 +1,4 @@
-mutation CartAddProduct(
+mutation CartUpdateProduct(
 	$orderId: ID!
 	$total: Int!
 	$productId: ID!

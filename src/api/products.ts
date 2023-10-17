@@ -9,23 +9,26 @@ import {
 	ProductsGetListByNameDocument,
 	type ProductListItemFragment,
 	ProductGetByCollectionSlugDocument,
+	ProductOrderByInput,
 } from "@/gql/graphql";
 
 export const getProductsList = async (
 	productAmount: number,
 	offset: number,
-	orderBy:
-		| { price: "asc" | "desc" }
-		| { averageRating: "asc" | "desc" }
-		| undefined = undefined,
+	orderBy?: ProductOrderByInput,
 ) => {
 	const graphqlResponse = await executeGraphql({
 		query: ProductGetListDocument,
-		variables: { number: productAmount, offset, orderBy },
+		variables: {
+			number: productAmount,
+			offset,
+			orderBy: orderBy || "createdAt_ASC",
+		},
 		next: {
-			revalidate: 150,
+			revalidate: 0,
 		},
 	});
+	console.log(graphqlResponse.products);
 	return graphqlResponse.products;
 };
 

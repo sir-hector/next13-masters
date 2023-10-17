@@ -10751,6 +10751,16 @@ export type CartSetProductQuntityMutationVariables = Exact<{
 
 export type CartSetProductQuntityMutation = { updateOrderItem?: { id: string } | null };
 
+export type CartUpdateProductMutationVariables = Exact<{
+  orderId: Scalars['ID']['input'];
+  total: Scalars['Int']['input'];
+  productId: Scalars['ID']['input'];
+  quantity: Scalars['Int']['input'];
+}>;
+
+
+export type CartUpdateProductMutation = { updateOrderItem?: { id: string } | null };
+
 export type CategoryGetListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -10815,6 +10825,7 @@ export type ProductGetByIdQuery = { product?: { id: string, name: string, descri
 export type ProductGetListQueryVariables = Exact<{
   number: Scalars['Int']['input'];
   offset: Scalars['Int']['input'];
+  orderBy?: InputMaybe<ProductOrderByInput>;
 }>;
 
 
@@ -10947,6 +10958,16 @@ export const CartSetProductQuntityDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<CartSetProductQuntityMutation, CartSetProductQuntityMutationVariables>;
+export const CartUpdateProductDocument = new TypedDocumentString(`
+    mutation CartUpdateProduct($orderId: ID!, $total: Int!, $productId: ID!, $quantity: Int!) {
+  updateOrderItem(
+    data: {order: {connect: {id: $orderId}}, total: $total, product: {connect: {id: $productId}}, quantity: $quantity}
+    where: {id: $orderId}
+  ) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<CartUpdateProductMutation, CartUpdateProductMutationVariables>;
 export const CategoryGetListDocument = new TypedDocumentString(`
     query CategoryGetList {
   categories(first: 10) {
@@ -11093,8 +11114,8 @@ export const ProductGetByIdDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<ProductGetByIdQuery, ProductGetByIdQueryVariables>;
 export const ProductGetListDocument = new TypedDocumentString(`
-    query ProductGetList($number: Int!, $offset: Int!) {
-  products(first: $number, skip: $offset) {
+    query ProductGetList($number: Int!, $offset: Int!, $orderBy: ProductOrderByInput) {
+  products(first: $number, skip: $offset, orderBy: $orderBy) {
     ...ProductListItem
   }
   productsConnection {

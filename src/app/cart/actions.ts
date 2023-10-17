@@ -8,7 +8,9 @@ import {
 } from "@/gql/graphql";
 import Stripe from "stripe";
 import { cookies } from "next/headers";
+
 import { redirect } from "next/navigation";
+import { revalidateTag } from "next/cache";
 
 export const removeItem = async (itemId: string) => {
 	return executeGraphql({
@@ -29,7 +31,9 @@ export const changeItemQuantity = async (
 			itemId,
 			quantity,
 		},
+		cache: "no-store",
 	});
+	revalidateTag("cart");
 };
 
 export async function handlePaymentAction() {

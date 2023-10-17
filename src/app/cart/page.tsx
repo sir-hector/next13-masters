@@ -19,6 +19,7 @@ export default async function Page() {
 						<th>Product</th>
 						<th>Quantity</th>
 						<th>Price</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>

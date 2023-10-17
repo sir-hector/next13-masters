@@ -28,7 +28,6 @@ export const getProductsList = async (
 			revalidate: 0,
 		},
 	});
-	console.log(graphqlResponse.products);
 	return graphqlResponse.products;
 };
 

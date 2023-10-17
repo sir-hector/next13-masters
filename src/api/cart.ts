@@ -79,7 +79,6 @@ export async function addProductToCart(
 	const alreadyInCart = existingCart?.orderItems.find(
 		(orderItem) => orderItem.product?.id === productId,
 	);
-	console.log(alreadyInCart);
 	if (alreadyInCart) {
 		await executeGraphql({
 			query: CartSetProductQuntityDocument,

@@ -33,7 +33,12 @@ export const ProductListItemDescription = (
 				)}
 			</div>
 			<div className="flex justify-between">
-				<p className="text-lg font-semibold">{price}zł</p>
+				<p
+					className="text-lg font-semibold"
+					data-testid="product-price"
+				>
+					{price}zł
+				</p>
 			</div>
 		</div>
 	);

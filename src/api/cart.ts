@@ -3,6 +3,7 @@ import {
 	CartAddProductDocument,
 	CartCreateDocument,
 	CartGetByIdDocument,
+	CartSetProductQuntityDocument,
 	ProductGetByIdDocument,
 } from "@/gql/graphql";
 import { executeGraphql } from "@/api/graphqlApi";
@@ -75,19 +76,27 @@ export async function addProductToCart(
 	}
 
 	const existingCart = await getCartFromCookies();
-	const alreadyInCart = existingCart?.orderItems.filter(
+	const alreadyInCart = existingCart?.orderItems.find(
 		(orderItem) => orderItem.product?.id === productId,
 	);
-
 	console.log(alreadyInCart);
-
-	await executeGraphql({
-		query: CartAddProductDocument,
-		variables: {
-			orderId: id,
-			productId: productId,
-			total: product.price,
-		},
-		cache: "no-store",
-	});
+	if (alreadyInCart) {
+		await executeGraphql({
+			query: CartSetProductQuntityDocument,
+			variables: {
+				itemId: alreadyInCart?.id,
+				quantity: alreadyInCart.quantity + 1,
+			},
+		});
+	} else {
+		await executeGraphql({
+			query: CartAddProductDocument,
+			variables: {
+				orderId: id,
+				productId: productId,
+				total: product.price,
+			},
+			cache: "no-store",
+		});
+	}
 }

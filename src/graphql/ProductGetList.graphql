@@ -1,5 +1,9 @@
-query ProductGetList($number: Int!, $offset: Int!) {
-	products(first: $number, skip: $offset) {
+query ProductGetList(
+	$number: Int!
+	$offset: Int!
+	$orderBy: ProductOrderByInput
+) {
+	products(first: $number, skip: $offset, orderBy: $orderBy) {
 		...ProductListItem
 	}
 	productsConnection {
@@ -7,4 +11,15 @@ query ProductGetList($number: Int!, $offset: Int!) {
 			count
 		}
 	}
+}
+
+input ProductOrderByInput {
+	name: Sort
+	price: Sort
+	averageRating: Sort
+}
+
+enum Sort {
+	asc
+	desc
 }

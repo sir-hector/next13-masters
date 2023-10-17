@@ -1,7 +1,7 @@
 "use client";
 
 import { experimental_useOptimistic as useOptimistic } from "react";
-import { changeItemQuantity } from "./actions";
+import { changeItemQuantity, removeItem } from "./actions";
 
 export const IncrementProductQuantity = ({
 	quantity,
@@ -14,15 +14,29 @@ export const IncrementProductQuantity = ({
 		useOptimistic(quantity);
 	return (
 		<form>
-			{optimisticQuantity}
+			<p data-testid="quantity">{optimisticQuantity}</p>
 			<button
 				className="ml-2 h-8 w-8 border bg-slate-50 text-black"
+				data-testid="increment"
 				formAction={async () => {
 					setOptimisticQuantity(optimisticQuantity + 1);
 					await changeItemQuantity(itemId, optimisticQuantity + 1);
 				}}
 			>
 				+
+			</button>
+			<button
+				className="ml-2 h-8 w-8 border bg-slate-50 text-black"
+				data-testid="decrement"
+				formAction={async () => {
+					if (optimisticQuantity === 1) {
+						await removeItem(itemId);
+					}
+					setOptimisticQuantity(optimisticQuantity - 1);
+					await changeItemQuantity(itemId, optimisticQuantity - 1);
+				}}
+			>
+				-
 			</button>
 		</form>
 	);

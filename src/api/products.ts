@@ -14,10 +14,14 @@ import {
 export const getProductsList = async (
 	productAmount: number,
 	offset: number,
+	orderBy:
+		| { price: "asc" | "desc" }
+		| { averageRating: "asc" | "desc" }
+		| undefined = undefined,
 ) => {
 	const graphqlResponse = await executeGraphql({
 		query: ProductGetListDocument,
-		variables: { number: productAmount, offset },
+		variables: { number: productAmount, offset, orderBy },
 		next: {
 			revalidate: 150,
 		},

@@ -4,6 +4,12 @@ import { ActiveLink } from "@/ui/atoms/ActiveLink";
 import { getCartFromCookies } from "@/api/cart";
 import Link from "next/link";
 import { getCollectionList } from "@/api/collecttions";
+import {
+	SignInButton,
+	SignedIn,
+	SignedOut,
+	UserButton,
+} from "@clerk/nextjs";
 
 export const NavigationBar = async () => {
 	const cart = await getCartFromCookies();
@@ -74,6 +80,14 @@ export const NavigationBar = async () => {
 					/>
 					<span className="ml-2 text-sm font-medium">{quantity}</span>
 				</Link>
+				<div>
+					<SignedIn>
+						<UserButton />
+					</SignedIn>
+					<SignedOut>
+						<SignInButton />
+					</SignedOut>
+				</div>
 			</div>
 		</div>
 	);

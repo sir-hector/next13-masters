@@ -1,0 +1,6 @@
+query OrdersByEmails($email: String!) {
+	orders(where: { email: $email }) {
+		id
+		createdAt
+	}
+}

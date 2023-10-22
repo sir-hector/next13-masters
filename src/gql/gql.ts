@@ -23,6 +23,7 @@ const documents = {
     "query CategoryGetList {\n  categories(first: 10) {\n    id\n    name\n    slug\n  }\n}": types.CategoryGetListDocument,
     "query CollectionGetBySlug($slug: String!) {\n  collections(where: {slug: $slug}, first: 1) {\n    id\n    name\n    slug\n  }\n}": types.CollectionGetBySlugDocument,
     "query CollectionGetList {\n  collections(first: 10) {\n    id\n    name\n    slug\n  }\n}": types.CollectionGetListDocument,
+    "query OrdersByEmails($email: String!) {\n  orders(where: {email: $email}) {\n    id\n    createdAt\n  }\n}": types.OrdersByEmailsDocument,
     "query ProductCount {\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductCountDocument,
     "query ProductCountByCategory($category: String!) {\n  productsConnection(where: {categories_every: {slug: $category}}) {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductCountByCategoryDocument,
     "query ProductCountByCollection($collection: String!) {\n  productsConnection(where: {collections_every: {slug: $collection}}) {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductCountByCollectionDocument,
@@ -73,6 +74,10 @@ export function graphql(source: "query CollectionGetBySlug($slug: String!) {\n  
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query CollectionGetList {\n  collections(first: 10) {\n    id\n    name\n    slug\n  }\n}"): typeof import('./graphql').CollectionGetListDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query OrdersByEmails($email: String!) {\n  orders(where: {email: $email}) {\n    id\n    createdAt\n  }\n}"): typeof import('./graphql').OrdersByEmailsDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
